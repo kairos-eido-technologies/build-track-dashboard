@@ -41,7 +41,7 @@ export const Route = createFileRoute("/analysis")({
       },
     ],
   }),
-  component: Analysis;
+  component: Analysis,
 });
 
 function Analysis() {
