@@ -12,9 +12,9 @@ export function AnimatedNumber({
   duration = 1.1,
 }: {
   value: number;
-  format?: (n: number) => string;
-  className?: string;
-  duration?: number;
+  format?: ((n: number) => string) | undefined;
+  className?: string | undefined;
+  duration?: number | undefined;
 }) {
   const [display, setDisplay] = React.useState(0);
 

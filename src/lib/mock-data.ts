@@ -398,7 +398,8 @@ export function buildAlerts(list: Project[]): AlertItem[] {
           timestamp: "2026-08-27T15:10:00Z",
         });
       }
-      if (ph.revisions.length >= 2) {
+      const last = ph.revisions[ph.revisions.length - 1];
+      if (ph.revisions.length >= 2 && last) {
         alerts.push({
           id: `${p.id}-${ph.id}-rev`,
           severity: "info",
@@ -406,8 +407,8 @@ export function buildAlerts(list: Project[]): AlertItem[] {
           projectName: p.name,
           phaseName: ph.name,
           title: `${ph.revisions.length} plan revisions logged`,
-          detail: ph.revisions[ph.revisions.length - 1].reason,
-          timestamp: ph.revisions[ph.revisions.length - 1].timestamp,
+          detail: last.reason,
+          timestamp: last.timestamp,
         });
       }
     });

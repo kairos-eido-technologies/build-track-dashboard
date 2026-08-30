@@ -204,12 +204,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               />
             </div>
 
-            <div className="mt-4 flex items-center justify-between border-t pt-3 text-xs">
-              <span className="text-muted-foreground">
-                Watch: <span className="font-semibold text-foreground">{worst.name}</span>
-              </span>
-              <VarianceBadge pct={phaseVariancePct(worst)} />
-            </div>
+            {worst && (
+              <div className="mt-4 flex items-center justify-between border-t pt-3 text-xs">
+                <span className="text-muted-foreground">
+                  Watch: <span className="font-semibold text-foreground">{worst.name}</span>
+                </span>
+                <VarianceBadge pct={phaseVariancePct(worst)} />
+              </div>
+            )}
           </Panel>
         </Link>
       </TiltCard>
