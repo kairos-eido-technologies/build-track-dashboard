@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as ProjectProjectIdRouteImport } from './routes/project.$projectId'
 import { Route as ProjectProjectIdPhasePhaseIdRouteImport } from './routes/project.$projectId.phase.$phaseId'
@@ -17,6 +18,11 @@ import { Route as ProjectProjectIdPhasePhaseIdRouteImport } from './routes/proje
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnalysisRoute = AnalysisRouteImport.update({
@@ -38,12 +44,14 @@ const ProjectProjectIdPhasePhaseIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
   '/analysis': typeof AnalysisRoute
   '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
   '/project/$projectId/phase/$phaseId': typeof ProjectProjectIdPhasePhaseIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
   '/analysis': typeof AnalysisRoute
   '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
   '/project/$projectId/phase/$phaseId': typeof ProjectProjectIdPhasePhaseIdRoute
@@ -51,6 +59,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
   '/analysis': typeof AnalysisRoute
   '/project/$projectId': typeof ProjectProjectIdRouteWithChildren
   '/project/$projectId/phase/$phaseId': typeof ProjectProjectIdPhasePhaseIdRoute
@@ -59,18 +68,21 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/alerts'
     | '/analysis'
     | '/project/$projectId'
     | '/project/$projectId/phase/$phaseId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/alerts'
     | '/analysis'
     | '/project/$projectId'
     | '/project/$projectId/phase/$phaseId'
   id:
     | '__root__'
     | '/'
+    | '/alerts'
     | '/analysis'
     | '/project/$projectId'
     | '/project/$projectId/phase/$phaseId'
@@ -78,6 +90,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
   AnalysisRoute: typeof AnalysisRoute
   ProjectProjectIdRoute: typeof ProjectProjectIdRouteWithChildren
 }
@@ -89,6 +102,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/analysis': {
@@ -128,6 +148,7 @@ const ProjectProjectIdRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
   AnalysisRoute: AnalysisRoute,
   ProjectProjectIdRoute: ProjectProjectIdRouteWithChildren,
 }
